@@ -2,11 +2,18 @@
   "name": "move-to-public-path-webpack-plugin",
   "version": "0.0.1",
   "description": "将打包后生成的文件移动到 outputPath 配置的路径",
-  "main": "index.js",
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": ["dist/**/*"],
   "repository": "https://github.com/YingJiangHui/move-to-publicPath-webpack-plugin",
+  "homepage": "https://github.com/YingJiangHui/move-to-publicPath-webpack-plugin",
+  "keywords": ["public path"],
   "author": "Jh",
   "license": "yes",
   "private": false,
+  "scripts": {
+    "build": "tsc --build tsconfig.json"
+  },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
     "fs-extra": "^10.0.0",
