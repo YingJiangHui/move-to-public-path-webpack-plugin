@@ -18,7 +18,7 @@ yarn add move-to-public-path-webpack-plugin -D
 const MoveToPublicPathWebpackPlugin = require('move-to-public-path-webpack-plugin').default
 
 module.exports = {
-  devtool:'source-map',
+  publicPath:'/your/public/path/',
   plugins:[
     new MoveToPublicPathWebpackPlugin()
   ]
@@ -30,6 +30,7 @@ module.exports = {
 import MoveToPublicPathWebpackPlugin from 'move-to-public-path-webpack-plugin'
 
 const chainWebpack = (config)=>{
-  config.plugins('move-to-public-path-webpack-plugin').use(MoveToPublicPathWebpackPlugin).end()
+  config.output.publicPath('/your/public/path/')
+  config.plugins('move-to-public-path-webpack-plugin').use(MoveToPublicPathWebpackPlugin)
 }
 ```
