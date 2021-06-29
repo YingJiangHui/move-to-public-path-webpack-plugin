@@ -1,7 +1,7 @@
 import {Compiler, Stats} from 'webpack'
 import path from 'path'
-import fs from 'fs-extra'
-
+import fsExtra from 'fs-extra'
+import fs from 'fs'
 class MoveToPublicPathWebpackPlugin {
   apply(compiler:Compiler){
     compiler.hooks.done.tap('move-to-public-path-webpack-plugin',(stats:Stats)=>{
@@ -13,7 +13,12 @@ class MoveToPublicPathWebpackPlugin {
       const newPath = path.resolve(outputPath,publicPath)
       if(oldPath===newPath) return;
       Object.keys(compilation.assets).filter((filename)=>(/[^index.html]/.test(filename))).map(async (filename)=>{
-        await fs.move(path.resolve(oldPath,filename),path.resolve(newPath,filename),{overwrite:true})
+        await fsExtra.moveSync(path.resolve(oldPath,filename),path.resolve(newPath,filename),{overwrite:true})
+      })
+      fs.readdirSync(outputPath)
+      .filter((filename)=>!(/^index.html$/.test(filename)||('./ui'.split('/').pop()===filename)))
+      .map((filename)=>{
+        fsExtra.removeSync(path.resolve(outputPath,filename))
       })
     })
   }
